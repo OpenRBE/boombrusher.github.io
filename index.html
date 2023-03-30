@@ -9,40 +9,36 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <script type="module">
-			import * as THREE from 'https://unpkg.com/three/build/three.module.js';
-
-			// Our Javascript will go here.
-		</script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.103/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <script src="js/scripts.js"></script>
     <script src="js/tokenizers.js"></script>
     <script src="js/transformers.js"></script>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.103/Build/Cesium/Cesium.js"></script>
     <title>OpenRBE</title>
 </head>
 <body>
-  <header>
-    <nav>
-      <!-- Add navigation links here -->
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <h1>OpenRBE</h1>
-    <p>Abundance for the neighborhood</p>
-  </header>
-  <main>
-    <section>
-      <h2>About OpenRBE</h2>
-      <p>OpenRBE is a cutting-edge project designed to...</p>
-      <!-- Add more content about OpenRBE -->
-    </section>
-    <section>
-      <h2>Problems We Solve</h2>
-      <p>With OpenRBE, we aim to address challenges such as...</p>
-      <!-- Add more content about the problems OpenRBE solves -->
-    </section>
-  </main>
-  <footer>
-  </footer>
+  <div id="cesiumContainer"></div>
+  <script>
+    // Your access token can be found at: https://ion.cesium.com/tokens.
+    // This is the default access token from your ion account
+
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3MGYyNzJlNS1mMWQ4LTRjMjYtOTk3Zi0xYjRjNzllY2FhMzciLCJpZCI6NDg2MzgsImlhdCI6MTYxNzI1NDM4OX0.RuGDMUUnxrF9oPI3LMfDY30tI509NrxUuwxdaKDLFu0';
+
+    // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+      terrainProvider: Cesium.createWorldTerrain()
+    });    
+    // Add Cesium OSM Buildings, a global 3D buildings layer.
+    const buildingTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());   
+    // Fly the camera to San Francisco at the given longitude, latitude, and height.
+    viewer.camera.flyTo({
+      destination : Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
+      orientation : {
+        heading : Cesium.Math.toRadians(0.0),
+        pitch : Cesium.Math.toRadians(-15.0),
+      }
+    });
+  </script>
+ </div>
 </body>
 </html>
